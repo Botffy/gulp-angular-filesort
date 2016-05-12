@@ -32,7 +32,7 @@ function sort(files, checkResults, hadleError) {
   });
 
   stream.on('data', function (file) {
-    resultFiles.push(file.relative);
+    resultFiles.push(file.basename);
   });
 
   stream.on('end', function () {
@@ -61,9 +61,9 @@ describe('gulp-angular-filesort', function () {
 
     sort(files, function (resultFiles) {
       resultFiles.length.should.equal(7);
-      resultFiles.indexOf('fixtures/module-controller.js').should.be.above(resultFiles.indexOf('fixtures/module.js'));
-      resultFiles.indexOf('fixtures/yet-another.js').should.be.above(resultFiles.indexOf('fixtures/another.js'));
-      resultFiles.indexOf('fixtures/another-factory.js').should.be.above(resultFiles.indexOf('fixtures/another.js'));
+      resultFiles.indexOf('module-controller.js').should.be.above(resultFiles.indexOf('module.js'));
+      resultFiles.indexOf('yet-another.js').should.be.above(resultFiles.indexOf('another.js'));
+      resultFiles.indexOf('another-factory.js').should.be.above(resultFiles.indexOf('another.js'));
       done();
     })
 
@@ -76,7 +76,7 @@ describe('gulp-angular-filesort', function () {
 
     sort(files, function (resultFiles) {
       resultFiles.length.should.equal(1);
-      resultFiles[0].should.equal('fixtures/circular.js');
+      resultFiles[0].should.equal('circular.js');
       done();
     })
 
@@ -90,8 +90,8 @@ describe('gulp-angular-filesort', function () {
 
     sort(files, function (resultFiles) {
       resultFiles.length.should.equal(2);
-      resultFiles.should.contain('fixtures/circular2.js');
-      resultFiles.should.contain('fixtures/circular3.js');
+      resultFiles.should.contain('circular2.js');
+      resultFiles.should.contain('circular3.js');
       done();
     })
 
@@ -115,7 +115,7 @@ describe('gulp-angular-filesort', function () {
     ];
 
     sort(files, function (resultFiles) {
-      resultFiles.should.eql(['fixtures/empty.js'])
+      resultFiles.should.eql(['empty.js'])
       done();
     })
   });
