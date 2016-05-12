@@ -119,4 +119,35 @@ describe('gulp-angular-filesort', function () {
       done();
     })
   });
+
+  it('should sort files without angular stuff before everything else', function(done) {
+    var files = [
+      fixture('fixtures/global-var-no-dep.js'),
+      fixture('fixtures/module.js'),
+      fixture('fixtures/module-controller.js')
+    ];
+
+    sort(files, function(resultFiles) {
+      resultFiles.should.contain('global-var-no-dep.js');
+      resultFiles.indexOf('global-var-no-dep.js').should.be.below(resultFiles.indexOf('module.js'));
+      resultFiles.indexOf('global-var-no-dep.js').should.be.below(resultFiles.indexOf('module-controller.js'));
+      done();
+    });
+  });
+
+  it('should sort files without dependencies before everything else', function(done) {
+    var files = [
+      fixture('fixtures/no-deps.js'),
+      fixture('fixtures/module.js'),
+      fixture('fixtures/module-controller.js')
+    ];
+
+    sort(files, function(resultFiles) {
+      resultFiles.should.contain('no-deps.js');
+      resultFiles.indexOf('no-deps.js').should.be.below(resultFiles.indexOf('module.js'));
+      resultFiles.indexOf('no-deps.js').should.be.below(resultFiles.indexOf('module-controller.js'));
+      done();
+    });
+  });
 });
+
